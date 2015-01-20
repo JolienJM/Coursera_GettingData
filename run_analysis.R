@@ -28,6 +28,12 @@ features_to_keep = features[grep("mean|std", features$V2),]
 meanFreq = features_to_keep[grep("meanFreq", features_to_keep$V2),] 
 mean_sd_features = setdiff(features_to_keep, meanFreq)
 
+# Tidy up variable names
+mean_sd_features$V2 = gsub("^t", "time", mean_sd_features$V2) 
+mean_sd_features$V2 = gsub("^f", "freq", mean_sd_features$V2)
+mean_sd_features$V2 = gsub("BodyBody", "Body", mean_sd_features$V2)
+mean_sd_features$V2 = gsub("[()]", "", mean_sd_features$V2)
+
 # Subset X_train/test to only keep mean/sd features. Change column names
 X_train = X_train[,mean_sd_features[,1]]
 X_test = X_test[,mean_sd_features[,1]]
